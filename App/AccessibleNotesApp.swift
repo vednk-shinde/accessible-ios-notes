@@ -1,3 +1,4 @@
+import CryptoKit
 import NotesCore
 import SwiftUI
 
@@ -11,7 +12,13 @@ struct AccessibleNotesApp: App {
         let persistence = PersistenceController(inMemory: uiTesting, cloudKit: !args.contains("-disableCloudKit"))
         // Key lives in the (iCloud) Keychain; UI tests use a local, non-synced key.
         let keyStore = KeychainKeyStore(synchronizable: !uiTesting)
-        guard let key = try? keyStore.loadOrCreateKey() else {
+        let key: SymmetricKey
+        if let stored = try? keyStore.loadOrCreateKey() {
+            key = stored
+        } else if uiTesting {
+            // Unsigned simulator builds (CI) may have no Keychain access: use an ephemeral key.
+            key = NoteCrypto.generateKey()
+        } else {
             fatalError("Unable to access the encryption key in the Keychain")
         }
         _store = StateObject(wrappedValue: NoteStore(persistence: persistence, crypto: NoteCrypto(key: key)))
