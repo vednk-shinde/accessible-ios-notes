@@ -34,9 +34,9 @@ final class AccessibilityUITests: XCTestCase {
 
     func testListPassesAccessibilityAudit() throws {
         // The empty list is drawn entirely by system views (ContentUnavailableView, search
-        // field), which iOS flags for Dynamic Type; text scaling of our own rows is covered
-        // by testLargestAccessibilityTextSize.
-        try audit([.contrast, .elementDetection, .hitRegion, .sufficientElementDescription, .trait, .textClipped])
+        // field), which iOS flags for Dynamic Type and contrast; text scaling of our own rows is covered
+        // by testLargestAccessibilityTextSize and contrast of our own views by the editor audit.
+        try audit([.elementDetection, .hitRegion, .sufficientElementDescription, .trait, .textClipped])
     }
 
     func testEditorPassesAccessibilityAudit() throws {
