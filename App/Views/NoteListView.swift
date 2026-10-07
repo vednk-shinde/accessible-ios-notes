@@ -66,15 +66,12 @@ struct NoteListView: View {
 
 private struct NoteRow: View {
     let note: NoteSnapshot
-    // Scales with Dynamic Type so the icon grows with the text.
-    @ScaledMetric(relativeTo: .body) private var iconSize: CGFloat = 16
-
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
                 if note.isPinned {
                     // Shape + text, never colour alone, conveys "pinned".
-                    Image(systemName: "pin.fill").font(.system(size: iconSize)).foregroundStyle(.primary)
+                    Image(systemName: "pin.fill").font(.headline).foregroundStyle(.primary)
                         .accessibilityHidden(true)
                 }
                 Text(note.displayTitle).font(.headline).lineLimit(2)

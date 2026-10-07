@@ -26,7 +26,7 @@ struct NoteEditorView: View {
                     .accessibilityValue(AccessibilityPhrases.rowValue(draft))
                     .accessibilityIdentifier("bodyField")
             } footer: {
-                Label("End-to-end encrypted", systemImage: "lock.fill").font(.footnote)
+                Label("End-to-end encrypted", systemImage: "lock.fill").font(.footnote).foregroundStyle(.primary)
             }
         }
         .navigationTitle(draft.displayTitle)
