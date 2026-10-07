@@ -5,9 +5,10 @@ before it is stored in Core Data, and Core Data mirrors the ciphertext to the us
 so Apple's servers and any sync bugs only ever see opaque bytes. The key lives in the **iCloud Keychain**, so
 all of a user's devices can decrypt.
 
-> **Status (honest):** this repo was authored without access to a Mac, so it has **not yet been compiled or run
-> on a device**. CI (`.github/workflows/ci.yml`) builds it and runs the unit and UI/accessibility tests on a macOS runner —
-> check the Actions tab. Not on TestFlight/App Store yet; see "Shipping" below.
+> **Status:** built and tested in CI on a macOS runner: `NotesCore` unit tests, the app build, and UI tests
+> (create/edit flow plus `performAccessibilityAudit` at default and AX XXXL text sizes) all pass on the iOS Simulator.
+> CloudKit sync is **not** exercised in CI (it needs a signed build and an iCloud account), and it has not been
+> tried on a physical device. Not on TestFlight/App Store yet; see "Shipping" below.
 
 ## Architecture
 
