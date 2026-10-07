@@ -1,0 +1,46 @@
+# Generate the Xcode project with:  brew install xcodegen && xcodegen generate
+name: AccessibleNotes
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  NotesCore:
+    path: .
+targets:
+  AccessibleNotes:
+    type: application
+    platform: iOS
+    sources: [App]
+    dependencies:
+      - package: NotesCore
+    entitlements:
+      path: App/AccessibleNotes.entitlements
+      properties:
+        com.apple.developer.icloud-services: [CloudKit]
+        com.apple.developer.icloud-container-identifiers: [iCloud.com.example.accessiblenotes]
+        aps-environment: development
+        keychain-access-groups: ["$(AppIdentifierPrefix)com.example.accessiblenotes"]
+    info:
+      path: App/Info.plist
+      properties:
+        UILaunchScreen: {}
+        UIBackgroundModes: [remote-notification] # CloudKit silent pushes
+        CFBundleDisplayName: Accessible Notes
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.accessiblenotes
+        SWIFT_VERSION: "5.9"
+  AccessibleNotesUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [UITests]
+    dependencies:
+      - target: AccessibleNotes
+schemes:
+  AccessibleNotes:
+    build:
+      targets:
+        AccessibleNotes: all
+    test:
+      targets: [AccessibleNotesUITests]
