@@ -22,7 +22,7 @@ struct NoteListView: View {
                         .swipeActions(edge: .leading) {
                             Button { store.togglePin(note) } label: {
                                 Label(note.isPinned ? "Unpin" : "Pin", systemImage: note.isPinned ? "pin.slash" : "pin")
-                            }.tint(.orange)
+                            }.tint(.indigo)
                         }
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) { store.delete(note) } label: {
@@ -74,7 +74,7 @@ private struct NoteRow: View {
             HStack(spacing: 6) {
                 if note.isPinned {
                     // Shape + text, never colour alone, conveys "pinned".
-                    Image(systemName: "pin.fill").font(.system(size: iconSize)).foregroundStyle(.orange)
+                    Image(systemName: "pin.fill").font(.system(size: iconSize)).foregroundStyle(.primary)
                         .accessibilityHidden(true)
                 }
                 Text(note.displayTitle).font(.headline).lineLimit(2)
